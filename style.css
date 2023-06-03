@@ -1,0 +1,14 @@
+.head-line{
+    margin-top: 1em;
+    display: flex;
+    justify-content: center;
+}
+.head-line svg{
+    width: 800px;
+}
+.menu{
+    margin-top: 1em;
+    display: flex;
+    justify-content: center;
+    border-top: 1px solid;
+}
