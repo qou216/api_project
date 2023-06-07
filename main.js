@@ -11,7 +11,14 @@ const getLatestNews = async() => {
     news = data.articles;
     console.log(news);
     
+    render();
 };
+
+const render = () =>{
+    let newsHTML = '';
+
+    document.getElementById("").innerHTML=newsHTML
+}
 getLatestNews();
 
 // setTimeout 함수  : ( 함수 , 시간 )  1초 :1000
