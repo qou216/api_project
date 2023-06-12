@@ -1,6 +1,7 @@
-let news = []
+let news = [];
 
-const getLatestNews = async() => {
+
+const getLatestNews = async () => {
     let url = new URL(`https://api.newscatcherapi.com/v2/latest_headlines?countries=KR&topic=sport&page_size=7`);
     let header =new Headers({'x-api-key':'haPQVwWMWcu0JJsF83k7H9Jrgmz1PFZGiZbwXfBktYw'});
     let response = await fetch(url,{headers:header}); //ajax ,axios ,fetch 
