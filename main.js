@@ -6,7 +6,7 @@ const getLatestNews = async () => {
         `https://api.newscatcherapi.com/v2/latest_headlines?countries=KR&topic=sport&page_size=10`
     );
     let header =new Headers({
-        "x-api-key":"haPQVwWMWcu0JJsF83k7H9Jrgmz1PFZGiZbwXfBktYw",
+        "x-api-key":"X0G2kOa_KrEh1DlM6sQx27Kl91vqlK0uEqIdaYyE-1Y"
     });
     
     let response = await fetch(url,{headers:header}); //ajax ,axios ,fetch 
@@ -20,9 +20,18 @@ const getLatestNews = async () => {
     render();
 };
 
-const getNewByTopic = (event) =>{
-    console.log("클릭", event.target);
-}
+const getNewByTopic = async (event) =>{
+    console.log("클릭", event.target.textContent);
+    let topic = event.target.textContent.toLowerCase();
+    let url =new URL(`https://api.newscatcherapi.com/v2/latest_headlines?countries=KR&topic=sport&page_size=10&tooic=${topic}`);
+    let header =new Headers({
+        "x-api-key":"X0G2kOa_KrEh1DlM6sQx27Kl91vqlK0uEqIdaYyE-1Y"
+    });
+    let response = await fetch(url,{headers:header});
+    let data = await response.json();
+
+    console.log(data);
+};
 
 const render = () =>{
     let newsHTML = ''
