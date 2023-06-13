@@ -14,7 +14,8 @@ const getLatestNews = async () => {
     let data = await response.json();
     //json : 서버통신에서 많이 쓰이는 데이터 타입 , 객체랑 똑같은데 text타입 
     //api문서가 json
-    console.log(data);
+    news = data.articles;
+    console.log(news);
     
 };
 getLatestNews();
