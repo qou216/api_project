@@ -1,6 +1,6 @@
 let news = [];
-
-
+let menu =document.querySelectorAll(".menu button");
+menu.forEach(menu=> menu.addEventListener("click", (event)=>getNewByTopic(event)));
 const getLatestNews = async () => {
     let url = new URL(
         `https://api.newscatcherapi.com/v2/latest_headlines?countries=KR&topic=sport&page_size=10`
@@ -17,7 +17,35 @@ const getLatestNews = async () => {
     news = data.articles;
     console.log(news);
     
+    render();
 };
+
+const getNewByTopic = (event) =>{
+    console.log("클릭", event.target);
+}
+
+const render = () =>{
+    let newsHTML = ''
+    newsHTML = news.map((item)=>{
+        return` <div class="row news">
+        <div class="col-lg-4">
+            <img class = "news-img-size" src="${item.media}"/>
+        </div>
+        <div class="col-lg-8">
+            <h2>${item.title}</h2>
+            <p>
+            ${item.summary}
+            </p>
+            <div>
+            ${item.rights} * ${item.published_date}
+            </div>
+        </div>
+    </div>`;
+    }).join('');
+
+    console.log(newsHTML);
+    document.getElementById("news-board").innerHTML=newsHTML;
+}
 getLatestNews();
 
 // setTimeout 함수  : ( 함수 , 시간 )  1초 :1000
