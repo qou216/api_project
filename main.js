@@ -1,40 +1,44 @@
 let news = [];
-let menu =document.querySelectorAll(".menu button");
+let menu = document.querySelectorAll(".menu button");
 menu.forEach(menu=> menu.addEventListener("click", (event)=>getNewByTopic(event)));
+
+let searchButton = document.getElementById("search-button");
+let url;
+
+const getNews = async () => {
+    let header =new Headers({
+        "x-api-key":""
+    });
+    let response = await fetch(url,{headers:header}); 
+    let data = await response.json();
+    news = data.articles;
+    render();
+};
+
 const getLatestNews = async () => {
-    let url = new URL(
+    url = new URL(
         `https://api.newscatcherapi.com/v2/latest_headlines?countries=KR&topic=sport&page_size=10`
     );
-    let header =new Headers({
-        "x-api-key":"X0G2kOa_KrEh1DlM6sQx27Kl91vqlK0uEqIdaYyE-1Y"
-    });
-    
-    let response = await fetch(url,{headers:header}); //ajax ,axios ,fetch 
-    // async와 await은 세트!
-    let data = await response.json();
-    //json : 서버통신에서 많이 쓰이는 데이터 타입 , 객체랑 똑같은데 text타입 
-    //api문서가 json
-    news = data.articles;
-    console.log(news);
-    
-    render();
+    getNews();
 };
 
 const getNewByTopic = async (event) =>{
     console.log("클릭", event.target.textContent);
     let topic = event.target.textContent.toLowerCase();
-    let url =new URL(`https://api.newscatcherapi.com/v2/latest_headlines?countries=KR&topic=sport&page_size=10&tooic=${topic}`);
-    let header =new Headers({
-        "x-api-key":"X0G2kOa_KrEh1DlM6sQx27Kl91vqlK0uEqIdaYyE-1Y"
-    });
-    let response = await fetch(url,{headers:header});
-    let data = await response.json();
+    url =new URL(`https://api.newscatcherapi.com/v2/latest_headlines?countries=KR&page_size=10&topic=${topic}`);
+    console.log("url", url);
+    getNews();
+};
 
-    console.log(data);
+const getNewByKeyword = async () => {
+    let keyword =document.getElementById("search-input").value;
+    url = new URL(`https://api.newscatcherapi.com/v2/search?q=${keyword}&page_size=10`
+    );
+    getNews();
 };
 
 const render = () =>{
-    let newsHTML = ''
+    let newsHTML = "";
     newsHTML = news.map((item)=>{
         return` <div class="row news">
         <div class="col-lg-4">
@@ -55,6 +59,7 @@ const render = () =>{
     console.log(newsHTML);
     document.getElementById("news-board").innerHTML=newsHTML;
 }
+searchButton.addEventListener("click",getNewByKeyword);
 getLatestNews();
 
 // setTimeout 함수  : ( 함수 , 시간 )  1초 :1000
